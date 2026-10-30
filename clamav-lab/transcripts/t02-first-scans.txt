@@ -1,0 +1,53 @@
+# t02 - first scans with the official database
+# clamscan exit codes: 0 = clean, 1 = something found, 2 = an error happened.
+# Each scan loads the whole database first - the 14-17 seconds below is
+# almost all loading. Chapter 7 (clamd) is the answer to that wait.
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db testfiles/notes.txt; echo "exit code: $?"
+testfiles/notes.txt: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3628245
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 1
+Infected files: 0
+Data scanned: 179 B
+Data read: 90 B (ratio 1.99:1)
+Time: 13.100 sec (0 m 13 s)
+Start Date: 2026:10:30 09:01:11
+End Date:   2026:10:30 09:01:25
+exit code: 0
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db testfiles/eicar.com; echo "exit code: $?"
+testfiles/eicar.com: Eicar-Test-Signature FOUND
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3628245
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 1
+Infected files: 1
+Data scanned: 68 B
+Data read: 68 B (ratio 1.00:1)
+Time: 12.817 sec (0 m 12 s)
+Start Date: 2026:10:30 09:01:25
+End Date:   2026:10:30 09:01:37
+exit code: 1
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db testfiles/essay-about-viruses.txt; echo "exit code: $?"
+testfiles/essay-about-viruses.txt: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3628245
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 1
+Infected files: 0
+Data scanned: 367 B
+Data read: 184 B (ratio 1.99:1)
+Time: 13.959 sec (0 m 13 s)
+Start Date: 2026:10:30 09:01:37
+End Date:   2026:10:30 09:01:51
+exit code: 0
+

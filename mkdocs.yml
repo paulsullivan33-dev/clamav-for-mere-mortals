@@ -1,0 +1,28 @@
+site_name: ClamAV for Mere Mortals
+site_description: An open source antivirus you run on your own machine. Scanning files and folders with a signature database you keep fresh yourself, a daemon that holds the database ready so scans start at once, quarantine for what it finds, and your own test signatures written and proved, with the limits stated plainly.
+site_url: https://paulsullivan33-dev.github.io/clamav-for-mere-mortals/
+copyright: 'Part of <a href="https://paulsullivan33-dev.github.io/mere-mortals/">For Mere Mortals</a> · Text CC BY 4.0, code MIT'
+
+# Guides live at the repo root (nice for GitHub browsing).
+# The deploy workflow copies them into docs/ before building.
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - What ClamAV Is: what-clamav-is.md
+  - The Moving Parts: the-moving-parts.md
+  - Installing ClamAV: installing-clamav.md
+  - Keeping Signatures Fresh: keeping-signatures-fresh.md
+  - Your First Scan: your-first-scan.md
+  - Scanning Folders and Quarantine: scanning-folders.md
+  - The Daemon — clamd: the-daemon-clamd.md
+  - Reading the Results: reading-the-results.md
+  - Your Own Signatures: your-own-signatures.md
+  - ClamAV and Mail: clamav-and-mail.md
+  - Recipes: recipes.md
+  - The Neighbours: the-neighbours.md
+  - Limits: limits.md
+  - Troubleshooting: troubleshooting.md
+  - Glossary: glossary.md
+  - Writing Criteria: criteria.md

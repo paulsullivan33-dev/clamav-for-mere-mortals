@@ -1,0 +1,77 @@
+# t03 - the lab's own two signatures, and nothing else
+# db-custom holds only the signatures written for this lab: one pattern
+# signature (.ndb) for a marker string the lab invented, and one whole-file
+# hash signature (.hdb). ClamAV itself adds the .UNOFFICIAL ending to the
+# names when it reports them - the mark of a signature that did not come
+# from a signed official database. No real malware is involved anywhere.
+
+$ cat db-custom/labtest.ndb
+Lab.Sig.MarkerTest:0:*:4c4142544553542d4d41524b45522d37663361396331652d444f2d4e4f542d53484950
+
+$ cat db-custom/labtest.hdb
+16b9de69a4c99b6dca59fa252dc2c7ac:77:Lab.Sig.WholeFile
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db-custom testfiles/marked-report.txt; echo "exit code: $?"
+testfiles/marked-report.txt: Lab.Sig.MarkerTest.UNOFFICIAL FOUND
+
+----------- SCAN SUMMARY -----------
+Known viruses: 2
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 1
+Infected files: 1
+Data scanned: 157 B
+Data read: 157 B (ratio 1.00:1)
+Time: 0.031 sec (0 m 0 s)
+Start Date: 2026:10:30 09:01:59
+End Date:   2026:10:30 09:01:59
+exit code: 1
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db-custom testfiles/flagged-by-hash.txt; echo "exit code: $?"
+testfiles/flagged-by-hash.txt: Lab.Sig.WholeFile.UNOFFICIAL FOUND
+
+----------- SCAN SUMMARY -----------
+Known viruses: 2
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 1
+Infected files: 1
+Data scanned: 77 B
+Data read: 77 B (ratio 1.00:1)
+Time: 0.020 sec (0 m 0 s)
+Start Date: 2026:10:30 09:01:59
+End Date:   2026:10:30 09:01:59
+exit code: 1
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db-custom testfiles/notes.txt; echo "exit code: $?"
+testfiles/notes.txt: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 2
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 1
+Infected files: 0
+Data scanned: 179 B
+Data read: 90 B (ratio 1.99:1)
+Time: 0.015 sec (0 m 0 s)
+Start Date: 2026:10:30 09:01:59
+End Date:   2026:10:30 09:01:59
+exit code: 0
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db-custom testfiles/eicar.com; echo "exit code: $?"
+testfiles/eicar.com: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 2
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 1
+Infected files: 0
+Data scanned: 136 B
+Data read: 68 B (ratio 2.00:1)
+Time: 0.019 sec (0 m 0 s)
+Start Date: 2026:10:30 09:01:59
+End Date:   2026:10:30 09:01:59
+exit code: 0
+

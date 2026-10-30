@@ -1,0 +1,32 @@
+# t00 - the tools and their versions
+# The lab runs the Ubuntu noble ClamAV 1.5.4 packages extracted into a
+# private tree, so two tools complain below: clamdscan and freshclam read
+# their config file even for --version, and the compiled-in path
+# /etc/clamav does not exist in the lab. On a normal package install
+# those files exist and the commands print the version directly.
+
+$ clamscan --version
+ClamAV 1.5.4
+
+$ clamdscan --version
+ERROR: Can't parse clamd configuration file /etc/clamav/clamd.conf
+
+$ freshclam --version
+ERROR: Can't open/parse the config file /etc/clamav/freshclam.conf
+
+$ sigtool --version
+ClamAV 1.5.4
+
+$ clamconf --version
+Clam AntiVirus Configuration Tool 1.5.4
+
+$ uname -srm
+Linux 7.0.0-39-generic x86_64
+
+$ freshclam --config-file=$HOME/workspace/clamav-labwork/freshclam.conf --version
+ClamAV 1.5.4/28169/Fri Oct 30 06:26:48 2026
+
+$ clamdscan --config-file=$HOME/workspace/clamav-labwork/clamd.conf --version
+ERROR: Could not connect to clamd on LocalSocket /home/hatch/workspace/clamav-labwork/run/clamd.sock: No such file or directory
+ClamAV 1.5.4
+

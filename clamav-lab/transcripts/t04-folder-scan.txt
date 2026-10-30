@@ -1,0 +1,59 @@
+# t04 - scanning a whole folder, and copying what is found into quarantine
+# --copy puts a copy of each infected file in the quarantine folder and
+# leaves the original where it was. (--move and --remove exist too; the
+# guide's chapter 5 explains why copy is the gentle first step.)
+
+$ clamscan -r --database=$HOME/workspace/clamav-labwork/db testfiles; echo "exit code: $?"
+testfiles/notes.txt: OK
+testfiles/essay-about-viruses.txt: OK
+testfiles/eicar.com: Eicar-Test-Signature FOUND
+testfiles/marked-report.txt: OK
+testfiles/flagged-by-hash.txt: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3628245
+Engine version: 1.5.4
+Scanned directories: 1
+Scanned files: 5
+Infected files: 1
+Data scanned: 1.06 KiB
+Data read: 576 B (ratio 1.88:1)
+Time: 15.958 sec (0 m 15 s)
+Start Date: 2026:10:30 09:02:03
+End Date:   2026:10:30 09:02:19
+exit code: 1
+
+$ clamscan -r --database=$HOME/workspace/clamav-labwork/db --copy=$HOME/workspace/clamav-labwork/quarantine testfiles; echo "exit code: $?"
+testfiles/notes.txt: OK
+testfiles/essay-about-viruses.txt: OK
+testfiles/eicar.com: Eicar-Test-Signature FOUND
+testfiles/eicar.com (real path: '/home/hatch/workspace/clamav-labwork/testfiles/eicar.com'): copied to '/home/hatch/workspace/clamav-labwork/quarantine/eicar.com'
+testfiles/marked-report.txt: OK
+testfiles/flagged-by-hash.txt: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3628245
+Engine version: 1.5.4
+Scanned directories: 1
+Scanned files: 5
+Infected files: 1
+Data scanned: 1.06 KiB
+Data read: 576 B (ratio 1.88:1)
+Time: 16.323 sec (0 m 16 s)
+Start Date: 2026:10:30 09:02:19
+End Date:   2026:10:30 09:02:35
+exit code: 1
+
+$ ls -la quarantine/
+total 4
+drwxrwx--- 1 root root  18 Oct 30 09:02 .
+drwxrwx--- 1 root root 316 Oct 30 09:02 ..
+-rw------- 1 root root  68 Oct 30 08:58 eicar.com
+
+$ ls testfiles/
+eicar.com
+essay-about-viruses.txt
+flagged-by-hash.txt
+marked-report.txt
+notes.txt
+

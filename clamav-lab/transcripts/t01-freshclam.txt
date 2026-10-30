@@ -1,0 +1,61 @@
+# t01 - freshclam: fetching the official signature database
+# The first download ran during lab setup; its own output is appended at
+# the end of this file, verbatim. This transcript re-runs freshclam, which
+# checks the same mirror and finds everything up to date.
+
+$ ls -la db/
+total 110204
+drwxrwx--- 1 root root      198 Oct 30 08:59 .
+drwxrwx--- 1 root root      296 Oct 30 08:58 ..
+-rw-r----- 1 root root     9078 Oct 30 08:59 bytecode-339.cvd.sign
+-rw-r----- 1 root root   281702 Oct 30 08:59 bytecode.cvd
+-rw-r----- 1 root root     9078 Oct 30 08:59 daily-28169.cvd.sign
+-rw-r----- 1 root root 23447608 Oct 30 08:59 daily.cvd
+-rw-r----- 1 root root       90 Oct 30 08:59 freshclam.dat
+-rw-r----- 1 root root     9078 Oct 30 08:59 main-63.cvd.sign
+-rw-r----- 1 root root 89072577 Oct 30 08:59 main.cvd
+
+$ freshclam --config-file=$HOME/workspace/clamav-labwork/freshclam.conf
+ClamAV update process started at Fri Oct 30 09:00:10 2026
+WARNING: Can't query current.cvd.clamav.net
+WARNING: Invalid DNS reply. Falling back to HTTP mode.
+Trying to retrieve CVD header from https://database.clamav.net/daily.cvd
+daily.cvd database is up-to-date (version: 28169, sigs: 355841, f-level: 90, builder: svc.clamav-publisher)
+Trying to retrieve CVD header from https://database.clamav.net/main.cvd
+main.cvd database is up-to-date (version: 63, sigs: 3287027, f-level: 90, builder: tomjudge)
+Trying to retrieve CVD header from https://database.clamav.net/bytecode.cvd
+bytecode.cvd database is up-to-date (version: 339, sigs: 80, f-level: 90, builder: nrandolp)
+
+$ sigtool --info db/main.cvd | head -12
+File: db/main.cvd
+Build time: 16 Dec 2025 23:18 +0000
+Version: 63
+Signatures: 3287027
+Functionality level: 90
+Builder: tomjudge
+MD5: 9c353a6b32555186a45a61c6441f38c0
+Digital signature: gI9w3cezaElJbedEoiykyQeX1f6j9Xbs3a+cf9U/kH5QScGMe2mRz1K2JlYOrqfBuOUMbiKmvkVvAquOsMeDp/ejLVDx5WulC6klZVhLOfBHda29OjaLZwEGR9GPIHDr0mXriv7pivuMH60/loxpASIJHLOszyj95pxVK+EaTCh
+Verification OK.
+
+# --- Appendix: output of the first download (freshclam.out), verbatim ---
+ClamAV update process started at Fri Oct 30 08:59:13 2026
+WARNING: Can't query current.cvd.clamav.net
+WARNING: Invalid DNS reply. Falling back to HTTP mode.
+Trying to retrieve CVD header from https://database.clamav.net/daily.cvd
+OK
+daily database available for download (remote version: 28169)
+Testing database: '/home/hatch/workspace/clamav-labwork/db/tmp.9c0612a3a4/daily.cvd' ...
+Database test passed.
+daily.cvd updated (version: 28169, sigs: 355841, f-level: 90, builder: svc.clamav-publisher)
+Trying to retrieve CVD header from https://database.clamav.net/main.cvd
+OK
+main database available for download (remote version: 63)
+Testing database: '/home/hatch/workspace/clamav-labwork/db/tmp.9c0612a3a4/main.cvd' ...
+Database test passed.
+main.cvd updated (version: 63, sigs: 3287027, f-level: 90, builder: tomjudge)
+Trying to retrieve CVD header from https://database.clamav.net/bytecode.cvd
+OK
+bytecode database available for download (remote version: 339)
+Testing database: '/home/hatch/workspace/clamav-labwork/db/tmp.9c0612a3a4/bytecode.cvd' ...
+Database test passed.
+bytecode.cvd updated (version: 339, sigs: 80, f-level: 90, builder: nrandolp)

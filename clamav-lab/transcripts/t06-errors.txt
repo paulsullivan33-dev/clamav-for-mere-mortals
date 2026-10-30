@@ -1,0 +1,59 @@
+# t06 - the ways a scan can fail, kept verbatim
+# A file that does not exist, an empty database folder, and a database
+# folder holding a broken signature file. All three exit with code 2,
+# which is how scripts tell 'something went wrong' from 'found' (1)
+# and 'clean' (0).
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db testfiles/no-such-file.txt; echo "exit code: $?"
+testfiles/no-such-file.txt: No such file or directory
+WARNING: testfiles/no-such-file.txt: Can't access file
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3628247
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 0
+Infected files: 0
+Data scanned: 0 B
+Data read: 0 B (ratio 0.00:1)
+Time: 13.377 sec (0 m 13 s)
+Start Date: 2026:10:30 09:03:06
+End Date:   2026:10:30 09:03:19
+exit code: 2
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db-empty testfiles/notes.txt; echo "exit code: $?"
+LibClamAV Error: cli_loaddbdir: No supported database files found in /home/hatch/workspace/clamav-labwork/db-empty
+ERROR: Can't open file or directory
+
+----------- SCAN SUMMARY -----------
+Known viruses: 0
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 0
+Infected files: 0
+Data scanned: 0 B
+Data read: 0 B (ratio 0.00:1)
+Time: 0.006 sec (0 m 0 s)
+Start Date: 2026:10:30 09:03:19
+End Date:   2026:10:30 09:03:19
+exit code: 2
+
+$ clamscan --database=$HOME/workspace/clamav-labwork/db-broken testfiles/notes.txt; echo "exit code: $?"
+LibClamAV Error: Problem parsing database at line 1
+LibClamAV Error: Can't load /home/hatch/workspace/clamav-labwork/db-broken/bad.ndb: Malformed database
+LibClamAV Error: cli_loaddbdir: error loading database /home/hatch/workspace/clamav-labwork/db-broken/bad.ndb
+ERROR: Malformed database
+
+----------- SCAN SUMMARY -----------
+Known viruses: 0
+Engine version: 1.5.4
+Scanned directories: 0
+Scanned files: 0
+Infected files: 0
+Data scanned: 0 B
+Data read: 0 B (ratio 0.00:1)
+Time: 0.007 sec (0 m 0 s)
+Start Date: 2026:10:30 09:03:19
+End Date:   2026:10:30 09:03:19
+exit code: 2
+
